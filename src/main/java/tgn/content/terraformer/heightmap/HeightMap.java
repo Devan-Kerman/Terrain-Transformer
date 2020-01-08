@@ -23,6 +23,7 @@ public class HeightMap {
 	private Rectangle area;
 
 	public HeightMap(Rectangle area, Sampler sampler, AverageStrategy strategy, int resolution) {
+		Preconditions.checkArgument(resolution > 0, "resolution must be greater than 0");
 		this.resolution = resolution;
 		this.area = area;
 		this.heights = new float[(area.width / resolution) * (area.height / resolution)];

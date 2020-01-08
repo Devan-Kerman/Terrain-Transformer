@@ -24,7 +24,7 @@ public class TerraformCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			if (args.length == 7 || args.length == 8) {
-				Optional<Integer[]> ints = ArrayUtil.map(args, Integer::parseInt);
+				Optional<Integer[]> ints = ArrayUtil.map(args, Integer::parseInt, Integer[]::new);
 				if (ints.isPresent()) {
 					Integer[] loc = ints.get();
 					this.test(((Player) sender).getWorld(), loc[0], loc[1], loc[2], loc[3], loc[4], loc[5], loc[6], loc.length == 7 ? 0 : loc[7]);

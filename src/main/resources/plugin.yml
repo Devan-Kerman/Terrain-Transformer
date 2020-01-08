@@ -3,3 +3,9 @@ version: @version@
 main: @group@.@pluginname@.@pluginName@
 api-version: 1.13
 authors: [HalfOf2]
+commands:
+  terraform:
+    usage: "/terraform <x> <z> <x> <z> <sampler> <resolution> <averager> (confidence)"
+    permission: terraformers.terraform
+    description: "terraforms the terrain in the area"
+    permission-message: "you do not have permission to use this command!"

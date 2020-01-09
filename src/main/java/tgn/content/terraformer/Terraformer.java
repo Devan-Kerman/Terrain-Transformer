@@ -15,24 +15,24 @@ import tgn.content.terraformer.commands.TerraformCommand;
 /**
  * transformation goals:
  *
- * terrain smoothing
- *      - erosion
+ * TODO terrain smoothing
+ *      - erosion - partially done
  * structure detection
- *      - homes
- *      - skyscrapers
- *      - farms
- * structure rotation and transformations
+ *      - homes - done
+ *      - skyscrapers - done
+ *      - TODO farms
+ * TODO structure rotation and transformations
  *      - skyscraper toppling
  *      - roof collapse
- * artificial structure creation
- * natural height map calculation
- * biome rewriting
+ * TODO artificial structure creation
+ * natural height map calculation - done
+ * TODO biome rewriting
  *      - biome setting
  *      - block remapping
  *      - terrain changes
- * recoloring
- * vegetation
- * gradual change
+ * TODO recoloring
+ * vegetation - done
+ * gradual change - done but can be expanded
  */
 public final class Terraformer extends JavaPlugin implements Listener {
 	@Override

@@ -19,7 +19,7 @@ import static java.lang.StrictMath.abs;
 public class Transformation {
 	private static final float BUILDING_THRESHOLD = 1.0f;
 	private static final float ROOF_THRESHOLD = 3f;
-	private static final int RESOLUTION = 3;
+	private static final int RESOLUTION = 4;
 	private final HeightMap terrain;
 	private final HeightMap buildings;
 	private final Region region;

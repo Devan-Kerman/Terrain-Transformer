@@ -1,16 +1,12 @@
-# Spigot-Template
-template project for making spigot plugins
+# Terrain Transformer
+terraforming via a plugin, but done right!
 
 ## Features
-automatically downloads paper for testing your plugins without having to include it in your repo or install it every time you clone it
+auto-detects structures and can apply specialized transformations to them, can do general transformations as well
 
-shades in paperlib
+## TODO
+more advanced structure transformations
 
-uses bukkit api for more compatibility, but you can change it to spigot
+farm detection
 
-auto-fills plugin.yml based on gradle.properties
-
-auto-checks for main class to ensure it is valid
-
-already packs in shadow plugin
-
+advanced terrain manipulation

@@ -53,6 +53,11 @@ public class SurfaceSampler implements Sampler {
 			case WATER:
 			case GRASS_BLOCK:
 			case GRASS_PATH:
+			case GRAVEL:
+			case LAVA:
+			case GRANITE:
+			case ANDESITE:
+			case DIORITE:
 				return true;
 			default:
 				return false;

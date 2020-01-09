@@ -1,9 +1,9 @@
 package tgn.content.terraformer.heightmap.sampling;
 
-public class Region {
+public class Region2D {
 	private int x, y, resolution;
 
-	public Region(int x, int y, int resolution) {
+	public Region2D(int x, int y, int resolution) {
 		this.x = x;
 		this.y = y;
 		this.resolution = resolution;

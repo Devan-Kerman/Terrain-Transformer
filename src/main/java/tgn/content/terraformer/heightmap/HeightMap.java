@@ -1,7 +1,7 @@
 package tgn.content.terraformer.heightmap;
 
 import com.google.common.base.Preconditions;
-import tgn.content.terraformer.heightmap.sampling.Region;
+import tgn.content.terraformer.heightmap.sampling.Region2D;
 import tgn.content.terraformer.heightmap.sampling.Sampler;
 import java.awt.Rectangle;
 import java.util.OptionalDouble;
@@ -32,7 +32,7 @@ public class HeightMap {
 		for (int x = 0; x < area.width; x += resolution) // unscaled
 			for (int y = 0; y < area.height; y += resolution) { // unscaled
 				// sample all areas in the map
-				Region region = new Region(x + area.x, y + area.y, resolution);
+				Region2D region = new Region2D(x + area.x, y + area.y, resolution);
 				// find the average
 				float value = strategy.average(region, sampler);
 				// rescale the coordinates and record it, even if invalid

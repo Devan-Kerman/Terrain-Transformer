@@ -3,14 +3,10 @@ package tgn.content.terraformer.structures;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import tgn.content.terraformer.structures.transformations.*;
 import tgn.content.terraformer.util.functions.IntCoordinateConsumer;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Region {
 	private static final Transformation ERODE_TRANSFORMER = new ErodeTransformation();
@@ -23,8 +19,6 @@ public class Region {
 	private static final Transformation UNDERGROWTH_TRANSFORMER = new Undergrower();
 
 	public static final Random RANDOM = new Random();
-	private Chunk[] cache;
-	private final int xSize;
 	public final int x, y, z, width, height, depth;
 	public final World world;
 
@@ -36,8 +30,6 @@ public class Region {
 		this.height = height;
 		this.depth = depth;
 		this.world = world;
-		this.xSize = (((x + width) >> 4) - (x >> 4) + 1);
-		this.cache = new Chunk[this.xSize * (((z + depth) >> 4) - (z >> 4) + 1)];
 	}
 
 	public void age() {
@@ -118,15 +110,12 @@ public class Region {
 	}
 
 	private Chunk getChunk(int x, int z) {
-		int chunkX = x >> 4;
-		int chunkZ = z >> 4;
-		int index = ((chunkX - (this.x >> 4)) * this.xSize) + (chunkZ - (z >> 4));
-		Chunk chunk = this.cache[index];
-		if (chunk == null) chunk = this.cache[index] = this.world.getChunkAt(chunkX, chunkZ);
-		return chunk;
+		// TODO chunk cache
+		return this.world.getChunkAt(x >> 4, z >> 4);
 	}
 
-	public List<Entity> getEntities() {
-		return Arrays.stream(this.cache).map(Chunk::getEntities).flatMap(Arrays::stream).collect(Collectors.toList());
+	@Override
+	public String toString() {
+		return "Region{" + "x=" + x + ", y=" + y + ", z=" + z + ", width=" + width + ", height=" + height + ", depth=" + depth + ", world=" + world + '}';
 	}
 }

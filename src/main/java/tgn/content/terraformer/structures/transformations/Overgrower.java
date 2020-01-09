@@ -25,7 +25,7 @@ public class Overgrower implements Transformation {
 						block.setType(b.getType());
 				}
 			}
-		}, .33f);
+		}, .5f);
 	}
 
 }

@@ -2,6 +2,14 @@ package tgn.content.terraformer.structures.transformations;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Item;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import tgn.content.terraformer.structures.Region;
 
 /**
@@ -12,18 +20,13 @@ public class GravityTransformation implements Transformation {
 	public void apply(Region region) {
 		region.forIn((x, y, z) -> {
 			Block block = region.getBlock(x, y, z);
-			// move block to floor
-			region.getBlock(x, this.getFloor(region, x, y, z), z).setBlockData(block.getBlockData(), false);
-			// delete old block
-			block.setType(Material.AIR);
-		});
-	}
+			if(block.getType().isSolid()) {
+				// move block to floor
+				if(block.getRelative(BlockFace.DOWN).getType().isAir())
+					region.world.spawnFallingBlock(block.getLocation().add(.5, 0, .5), block.getBlockData()).addScoreboardTag("replace");
 
-	private int getFloor(Region region, int x, int y, int z) {
-		for (int cy = y; cy > 0; cy--) {
-			if (!region.getBlock(x, cy, z).isPassable()) // check if block is passable
-				return cy+1;
-		}
-		return 0;
+				block.setType(Material.AIR);
+			}
+		});
 	}
 }

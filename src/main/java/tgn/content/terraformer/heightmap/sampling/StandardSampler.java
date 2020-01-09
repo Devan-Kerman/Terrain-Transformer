@@ -16,8 +16,8 @@ public class StandardSampler implements Sampler {
 	@Override
 	public int getHeight(int x, int y) {
 		Chunk chunk = this.world.getChunkAt(x >> 4, y >> 4); // performance :P
-		for (int h = 255; h >= 0; h++) {
-			if(!chunk.getBlock(x, h, y).getType().isAir()) // if non air block
+		for (int h = 255; h >= 0; h--) {
+			if(!chunk.getBlock(x & 15, h, y & 15).getType().isAir()) // if non air block
 				return h;
 		}
 		return -1;

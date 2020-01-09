@@ -49,15 +49,16 @@ public class HeightMap {
 
 	/**
 	 * returns -1 if invalid height
+	 *
 	 * @param x
 	 * @param y
 	 * @return
 	 */
 	public float getHeight(int x, int y) {
 		// ensure valid location
-		if((x >= this.area.x && x < this.area.x + this.area.width) && (y >= this.area.y && y < this.area.y + this.area.height)) {
-			int scaledX = floorDiv(x, this.resolution);
-			int scaledY = floorDiv(y, this.resolution);
+		if ((x >= this.area.x && x < this.area.x + this.area.width) && (y >= this.area.y && y < this.area.y + this.area.height)) {
+			int scaledX = floorDiv(x - this.area.x, this.resolution);
+			int scaledY = floorDiv(y - this.area.y, this.resolution);
 			return this.getHeightAt(scaledX, scaledY);
 		}
 		return -1;
@@ -75,7 +76,7 @@ public class HeightMap {
 
 	public void forEachScaled(BiConsumer<Point, Float> heightConsumer) {
 		for (int i = 0; i < this.heights.length; i++)
-			heightConsumer.accept(new Point((i / this.widthScaled) * this.resolution, (i % this.widthScaled) * this.resolution), this.heights[i]);
+			heightConsumer.accept(new Point(this.area.x + (i / this.widthScaled) * this.resolution, this.area.y + (i % this.widthScaled) * this.resolution), this.heights[i]);
 	}
 
 	// round to base

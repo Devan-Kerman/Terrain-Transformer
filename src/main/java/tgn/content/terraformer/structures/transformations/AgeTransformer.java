@@ -10,7 +10,7 @@ public class AgeTransformer implements Transformation {
 	@Override
 	public void apply(Region region) {
 		region.randBlocks(b -> {
-			if (!b.isLiquid()) b.setType(b.getType().isSolid() ? Material.AIR : Material.COBWEB);
-		}, .05f);
+			if (!b.isLiquid()) b.setType(Material.AIR);
+		}, .1f);
 	}
 }

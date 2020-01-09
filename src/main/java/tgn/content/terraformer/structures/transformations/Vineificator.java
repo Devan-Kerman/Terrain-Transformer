@@ -22,7 +22,7 @@ public class Vineificator implements Transformation {
 					block.setBlockData(data);
 				}
 			}
-		}, .5f);
+		}, 1f);
 	}
 
 }

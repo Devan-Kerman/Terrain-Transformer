@@ -13,6 +13,6 @@ public class ShatterWindowTransformation implements Transformation {
 		region.randBlocks(b -> {
 			if(Group.ALL_GLASS.is(b.getType()))
 				b.setType(Material.AIR, false);
-		},.333f);
+		},1f);
 	}
 }

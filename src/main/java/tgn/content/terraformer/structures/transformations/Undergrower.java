@@ -6,7 +6,7 @@ import static org.bukkit.Material.*;
 
 public class Undergrower extends AbstractSwappingTransformation {
 	public Undergrower() {
-		super(.333f);
+		super(1f);
 		// delete vegitation
 		Group.VEGETATION.forEach(m -> this.register(m, AIR));
 		// make all wood grey

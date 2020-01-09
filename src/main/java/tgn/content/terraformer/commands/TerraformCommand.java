@@ -12,7 +12,7 @@ import tgn.content.terraformer.structures.Region;
 @CommandAlias("terraform")
 public class TerraformCommand extends BaseCommand {
 	@Default
-	public void terraform(CommandSender sender, int x, int y, int z, @Default("100") int width, @Default("100") int height, @Default("100") int depth) {
+	public void terraform(CommandSender sender, int x, int y, int z, @Default("64") int width, @Default("64") int height, @Default("64") int depth) {
 		Region region = new Region(sender instanceof Player ? ((Player) sender).getWorld() : Bukkit.getWorlds().get(0), x, y, z, width, height, depth);
 		Transformation transformation = new Transformation(region);
 		transformation.start(sender);

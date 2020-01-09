@@ -37,6 +37,7 @@ public class Group {
 	public static final Group STONE_BRICKS = new Group();
 	// leaves
 	public static final Group LEAVES = new Group();
+	public static final Group GROWABLE_SURFACE = new Group();
 
 	private final Predicate<Material> predicate;
 	private final Set<Material> set;
@@ -82,6 +83,8 @@ public class Group {
 		register("LOG", String::endsWith, LOGS);
 		register("WOOD", String::endsWith, LOGS);
 		register(STONE_BRICKS, CHISELED_STONE_BRICKS, CRACKED_STONE_BRICKS, MOSSY_STONE_BRICKS, Material.STONE_BRICKS, INFESTED_CHISELED_STONE_BRICKS, INFESTED_STONE_BRICKS, INFESTED_CRACKED_STONE_BRICKS, INFESTED_MOSSY_STONE_BRICKS);
+		register(GROWABLE_SURFACE, DIRT);
+		register(GROWABLE_SURFACE, SAND);
 	}
 
 	private static void register(Material material, Group...groups) {
@@ -94,6 +97,12 @@ public class Group {
 	public static void register(Group group, Material...materials) {
 		for (Material material : materials)
 			register(material, group);
+	}
+
+	public static void register(Group group, Group...groups) {
+		for (Group group1 : groups) {
+			group1.forEach(m -> register(group, m));
+		}
 	}
 
 	private static void register(String string, BiPredicate<String, String> check, Group...groups) {

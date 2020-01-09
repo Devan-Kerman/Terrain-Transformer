@@ -6,7 +6,7 @@ import static org.bukkit.Material.*;
 
 public class ErodeTransformation extends AbstractSwappingTransformation {
 	public ErodeTransformation() {
-		super(.3333f);
+		super(.5f);
 		// wear down stones
 		Group.STONE.forEach(m -> this.register(m, COBBLESTONE));
 		this.register(COBBLESTONE, GRAVEL);

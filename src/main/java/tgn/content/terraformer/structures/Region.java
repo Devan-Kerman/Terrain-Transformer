@@ -3,13 +3,25 @@ package tgn.content.terraformer.structures;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import tgn.content.terraformer.structures.transformations.*;
 import tgn.content.terraformer.util.functions.IntCoordinateConsumer;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import java.util.stream.Collectors;
 
 public class Region {
+	private static final Transformation ERODE_TRANSFORMER = new ErodeTransformation();
+	private static final Transformation GRAVITY_TRANSFORMER = new GravityTransformation();
+	private static final Transformation WINDOW_TRANSFORMER = new ShatterWindowTransformation();
+	private static final Transformation VINE_TRANSFORMER = new Vineificator();
+	private static final Transformation AGE_TRANSFORMER = new AgeTransformer();
+	private static final Transformation DESERT_TRANSFORMER = new Desertifier();
+	private static final Transformation OVERGROWTH_TRANSFORMER = new Overgrower();
+	private static final Transformation UNDERGROWTH_TRANSFORMER = new Undergrower();
+
 	public static final Random RANDOM = new Random();
 	private Chunk[] cache;
 	private final int xSize;
@@ -28,6 +40,31 @@ public class Region {
 		this.cache = new Chunk[this.xSize * (((z + depth) >> 4) - (z >> 4) + 1)];
 	}
 
+	public void age() {
+		AGE_TRANSFORMER.apply(this);
+	}
+	public void desert() {
+		DESERT_TRANSFORMER.apply(this);
+	}
+	public void overgrow() {
+		OVERGROWTH_TRANSFORMER.apply(this);
+	}
+	public void undergrow() {
+		UNDERGROWTH_TRANSFORMER.apply(this);
+	}
+	public void erode() {
+		ERODE_TRANSFORMER.apply(this);
+	}
+	public void collapse() {
+		GRAVITY_TRANSFORMER.apply(this);
+	}
+	public void shatter() {
+		WINDOW_TRANSFORMER.apply(this);
+	}
+	public void vine() {
+		VINE_TRANSFORMER.apply(this);
+	}
+
 	/**
 	 * uses the chunk cache to get the blocks quicker
 	 *
@@ -36,8 +73,10 @@ public class Region {
 	 * @param z the z coordinate
 	 */
 	public Block getBlock(int x, int y, int z) {
-		this.validate(x, y, z);
-		return this.getChunk(x, z).getBlock(x & 15, y, z & 15);
+		if(this.validate(x, y, z)) {
+			return this.getChunk(x, z).getBlock(x & 15, y, z & 15);
+		} else
+			return this.world.getBlockAt(x, y, z);
 	}
 
 	public void forIn(IntCoordinateConsumer consumer) {
@@ -74,10 +113,8 @@ public class Region {
 		this.randIn((x, y, z) -> blocks.accept(this.getBlock(x, y, z)), chance);
 	}
 
-	private void validate(int x, int y, int z) {
-		checkArgument(x >= this.x && x < this.width + this.x, x + ":x is out of range");
-		checkArgument(y >= 0 && y < 255, y + ":y is out of range");
-		checkArgument(z >= this.z && z < this.depth + this.z, z + ":z is out of range");
+	private boolean validate(int x, int y, int z) {
+		return (x >= this.x && x < this.width + this.x) && (y >= 0 && y < 255) && (z >= this.z && z < this.depth + this.z);
 	}
 
 	private Chunk getChunk(int x, int z) {
@@ -87,5 +124,9 @@ public class Region {
 		Chunk chunk = this.cache[index];
 		if (chunk == null) chunk = this.cache[index] = this.world.getChunkAt(chunkX, chunkZ);
 		return chunk;
+	}
+
+	public List<Entity> getEntities() {
+		return Arrays.stream(this.cache).map(Chunk::getEntities).flatMap(Arrays::stream).collect(Collectors.toList());
 	}
 }

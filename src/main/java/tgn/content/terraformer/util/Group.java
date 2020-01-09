@@ -1,6 +1,5 @@
 package tgn.content.terraformer.util;
 
-import com.google.common.base.Preconditions;
 import org.bukkit.Material;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +35,8 @@ public class Group {
 	public static final Group LOGS = new Group();
 	// stone bricks and stuff
 	public static final Group STONE_BRICKS = new Group();
+	// leaves
+	public static final Group LEAVES = new Group();
 
 	private final Predicate<Material> predicate;
 	private final Set<Material> set;
@@ -76,7 +77,7 @@ public class Group {
 		register(DIRT, Material.DIRT, COARSE_DIRT, GRASS_PATH, GRASS_BLOCK, FARMLAND);
 		register(VEGETATION, GRASS, TALL_GRASS, CORNFLOWER, SUNFLOWER, POPPY, DANDELION, ALLIUM, ROSE_BUSH, AZURE_BLUET, FERN, LARGE_FERN, VINE, CACTUS, BLUE_ORCHID, RED_TULIP, ORANGE_TULIP, PINK_TULIP, WHITE_TULIP, OXEYE_DAISY, LILY_OF_THE_VALLEY, LILAC, PEONY);
 		register(SNOW, Material.SNOW, SNOW_BLOCK);
-		register("LEAVES", String::endsWith, VEGETATION);
+		register("LEAVES", String::endsWith, VEGETATION, LEAVES);
 		register("^(?!POTTED).*_SAPLING", String::matches, VEGETATION);
 		register("LOG", String::endsWith, LOGS);
 		register("WOOD", String::endsWith, LOGS);

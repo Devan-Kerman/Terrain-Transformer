@@ -37,8 +37,10 @@ public class Group {
 	public static final Group STONE_BRICKS = new Group();
 	// leaves
 	public static final Group LEAVES = new Group();
+	// things stuff can grow on
 	public static final Group GROWABLE_SURFACE = new Group();
 
+	public static final Group ICE = new Group();
 	private final Predicate<Material> predicate;
 	private final Set<Material> set;
 	public Group() {
@@ -85,6 +87,7 @@ public class Group {
 		register(STONE_BRICKS, CHISELED_STONE_BRICKS, CRACKED_STONE_BRICKS, MOSSY_STONE_BRICKS, Material.STONE_BRICKS, INFESTED_CHISELED_STONE_BRICKS, INFESTED_STONE_BRICKS, INFESTED_CRACKED_STONE_BRICKS, INFESTED_MOSSY_STONE_BRICKS);
 		register(GROWABLE_SURFACE, DIRT);
 		register(GROWABLE_SURFACE, SAND);
+		register(ICE, Material.ICE, PACKED_ICE, BLUE_ICE);
 	}
 
 	private static void register(Material material, Group...groups) {
